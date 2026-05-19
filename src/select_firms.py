@@ -2,9 +2,10 @@ import pandas as pd
 import numpy as np
 import re
 import time
-import os
+import os, sys
 from edgar import Company, set_identity
 
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from config import (
     DATA_DIR,

@@ -1,9 +1,21 @@
-DATA_DIR = "./data/"
+import os
 
-# Année utilisée pour classifier les firms
-# Si tu veux garder ton choix actuel, mets 2023.
-# Si tu veux une sélection plus propre pré-hype, mets 2021 ou moyenne 2018-2022.
-SCREENING_YEAR = 2023
+# Root of the project (one level up from src/)
+ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# Data directories
+DATA_DIR       = os.path.join(ROOT_DIR, "data", "processed")
+RAW_DIR        = os.path.join(ROOT_DIR, "data", "raw")
+OUTPUT_DIR     = os.path.join(ROOT_DIR, "outputs")
+FIGURES_DIR    = os.path.join(OUTPUT_DIR, "figures")
+TABLES_DIR     = os.path.join(OUTPUT_DIR, "tables")
+
+# Create all directories if they don't exist
+for d in [DATA_DIR, RAW_DIR, FIGURES_DIR, TABLES_DIR]:
+    os.makedirs(d, exist_ok=True)
+
+# ── Parameters ──────────────────────────────────────────────────
+SCREENING_YEAR = 2021      # year used to classify firms (pre-ChatGPT)
 
 FOCUS_SECTORS = [
     "Information Technology",
@@ -14,33 +26,13 @@ FOCUS_SECTORS = [
     "Energy",
 ]
 
-# Nombre de treatment/control à prendre dans chaque secteur
-# Tu peux ajuster selon les résultats disponibles.
 SECTOR_SELECTION = {
-    "Information Technology": {
-        "treatment": 8,
-        "control": 8,
-    },
-    "Communication Services": {
-        "treatment": 5,
-        "control": 5,
-    },
-    "Financials": {
-        "treatment": 4,
-        "control": 4,
-    },
-    "Health Care": {
-        "treatment": 4,
-        "control": 4,
-    },
-    "Industrials": {
-        "treatment": 4,
-        "control": 4,
-    },
-    "Energy": {
-        "treatment": 2,
-        "control": 2,
-    },
+    "Information Technology":  {"treatment": 8, "control": 8},
+    "Communication Services":  {"treatment": 5, "control": 5},
+    "Financials":              {"treatment": 4, "control": 4},
+    "Health Care":             {"treatment": 4, "control": 4},
+    "Industrials":             {"treatment": 3, "control": 3},
+    "Energy":                  {"treatment": 3, "control": 3},
 }
 
 AI_SCREENING_KEYWORDS = [
