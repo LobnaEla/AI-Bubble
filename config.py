@@ -1,17 +1,15 @@
 import os
 
-# Root of the project (one level up from src/)
-ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# Root of the project (directory containing this config file)
+ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # Data directories
 DATA_DIR       = os.path.join(ROOT_DIR, "data", "processed")
 RAW_DIR        = os.path.join(ROOT_DIR, "data", "raw")
-OUTPUT_DIR     = os.path.join(ROOT_DIR, "outputs")
-FIGURES_DIR    = os.path.join(OUTPUT_DIR, "figures")
-TABLES_DIR     = os.path.join(OUTPUT_DIR, "tables")
+OUTPUT_DIR     = os.path.join(ROOT_DIR, "data", "outputs")
 
 # Create all directories if they don't exist
-for d in [DATA_DIR, RAW_DIR, FIGURES_DIR, TABLES_DIR]:
+for d in [DATA_DIR, RAW_DIR, OUTPUT_DIR]:
     os.makedirs(d, exist_ok=True)
 
 # ── Parameters ──────────────────────────────────────────────────

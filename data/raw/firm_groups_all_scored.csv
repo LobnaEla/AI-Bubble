@@ -1,0 +1,152 @@
+ticker,name,sector,sub_industry,ai_density_2023,mda_length,note,rank_desc_in_sector,rank_asc_in_sector,group
+MMM,3M,Industrials,Industrial Conglomerates,0.0153,605934, full_text_fallback,26.0,3.0,middle
+ACN,Accenture,Information Technology,IT Consulting & Other Services,0.9752,422235, full_text_fallback,8.0,51.0,middle
+ADBE,Adobe Inc.,Information Technology,Application Software,1.3132,431845, full_text_fallback,4.0,55.0,middle
+AMD,Advanced Micro Devices,Information Technology,Semiconductors,0.3053,442897, full_text_fallback,24.0,35.0,middle
+A,Agilent Technologies,Health Care,Life Sciences Tools & Services,0.0627,571275, full_text_fallback,9.0,13.0,middle
+ALGN,Align Technology,Health Care,Health Care Supplies,0.1088,460677, full_text_fallback,6.0,16.0,middle
+ALLE,Allegion,Industrials,Building Products,0.0416,415721, full_text_fallback,14.0,15.0,middle
+GOOGL,Alphabet Inc. (Class A),Communication Services,Interactive Media & Services,0.6213,412477, full_text_fallback,1.0,11.0,middle
+GOOG,Alphabet Inc. (Class C),Communication Services,Interactive Media & Services,0.6213,412477, full_text_fallback,2.0,12.0,middle
+AXP,American Express,Financials,Consumer Finance,0.1228,693951, full_text_fallback,8.0,21.0,middle
+ADI,Analog Devices,Information Technology,Semiconductors,0.0575,419363, full_text_fallback,50.0,9.0,middle
+AAPL,Apple Inc.,Information Technology,"Technology Hardware, Storage & Peripherals",0.0703,252774, full_text_fallback,47.0,12.0,middle
+AMAT,Applied Materials,Information Technology,Semiconductor Materials & Equipment,0.2276,411273, full_text_fallback,31.0,28.0,middle
+APP,AppLovin,Information Technology,Application Software,0.0135,587956, full_text_fallback,57.0,1.0,middle
+ARES,Ares Management,Financials,Asset Management & Custody Banks,0.0144,1142895, full_text_fallback,25.0,4.0,middle
+ANET,Arista Networks,Information Technology,Communications Equipment,0.2796,479362, full_text_fallback,26.0,33.0,middle
+ADSK,Autodesk,Information Technology,Application Software,0.2623,511907, full_text_fallback,28.0,31.0,middle
+ADP,Automatic Data Processing,Industrials,Human Resource & Employment Services,1.1123,362426, full_text_fallback,1.0,28.0,middle
+AXON,Axon Enterprise,Industrials,Aerospace & Defense,0.018,448335, full_text_fallback,23.0,6.0,middle
+BKR,Baker Hughes,Energy,Oil & Gas Equipment & Services,0.384,421869, full_text_fallback,1.0,4.0,middle
+BAC,Bank of America,Financials,Diversified Banks,0.068,639475, full_text_fallback,11.0,18.0,middle
+BDX,Becton Dickinson,Health Care,Health Care Equipment,0.0192,443321, full_text_fallback,15.0,7.0,middle
+BX,Blackstone Inc.,Financials,Asset Management & Custody Banks,0.1941,1243330, full_text_fallback,7.0,22.0,middle
+XYZ,"Block, Inc.",Financials,Transaction & Payment Processing Services,0.026,617379, full_text_fallback,20.0,9.0,middle
+AVGO,Broadcom,Information Technology,Semiconductors,0.1293,471603, full_text_fallback,44.0,15.0,middle
+BR,Broadridge Financial Solutions,Industrials,Data Processing & Outsourced Services,0.0599,429456, full_text_fallback,12.0,17.0,middle
+CHRW,C.H. Robinson,Industrials,Air Freight & Logistics,0.0278,308791, full_text_fallback,19.0,10.0,middle
+CDNS,Cadence Design Systems,Information Technology,Application Software,0.175,429056, full_text_fallback,39.0,20.0,middle
+COF,Capital One,Financials,Consumer Finance,0.0295,971858, full_text_fallback,19.0,10.0,middle
+CARR,Carrier Global,Industrials,Building Products,0.0372,457720, full_text_fallback,17.0,12.0,middle
+CDW,CDW Corporation,Information Technology,Technology Distributors,0.0489,356799, full_text_fallback,52.0,7.0,middle
+COR,Cencora,Health Care,Health Care Distributors,0.0584,424039, full_text_fallback,10.0,12.0,middle
+CNC,Centene Corporation,Health Care,Managed Health Care,0.0171,511282, full_text_fallback,17.0,5.0,middle
+CRL,Charles River Laboratories,Health Care,Life Sciences Tools & Services,0.0158,557212, full_text_fallback,19.0,3.0,middle
+CIEN,Ciena,Information Technology,Communications Equipment,0.4467,579645, full_text_fallback,19.0,40.0,middle
+CI,Cigna,Health Care,Health Care Services,0.1026,747448, full_text_fallback,7.0,15.0,middle
+CSCO,Cisco,Information Technology,Communications Equipment,0.4284,503088, full_text_fallback,20.0,39.0,middle
+CFG,Citizens Financial Group,Financials,Regional Banks,0.0123,794180, full_text_fallback,26.0,3.0,middle
+CTSH,Cognizant,Information Technology,IT Consulting & Other Services,0.1731,414500, full_text_fallback,40.0,19.0,middle
+COHR,Coherent Corp.,Information Technology,Electronic Components,0.2026,478787, full_text_fallback,35.0,24.0,middle
+CPRT,Copart,Industrials,Diversified Support Services,0.0229,345323, full_text_fallback,20.0,9.0,middle
+CPAY,Corpay,Financials,Transaction & Payment Processing Services,0.0165,495431, full_text_fallback,24.0,5.0,middle
+CRWD,CrowdStrike,Information Technology,Systems Software,0.4046,494321, full_text_fallback,21.0,38.0,middle
+CVS,CVS Health,Health Care,Health Care Services,0.0177,894728, full_text_fallback,16.0,6.0,middle
+DHR,Danaher Corporation,Health Care,Life Sciences Tools & Services,0.0141,594778, full_text_fallback,20.0,2.0,middle
+DDOG,Datadog,Information Technology,Application Software,0.1498,433404, full_text_fallback,43.0,16.0,middle
+DVA,DaVita,Health Care,Health Care Services,0.0248,651830, full_text_fallback,14.0,8.0,middle
+DE,Deere & Company,Industrials,Agricultural & Farm Machinery,0.0186,524467, full_text_fallback,22.0,7.0,middle
+DELL,Dell Technologies,Information Technology,"Technology Hardware, Storage & Peripherals",0.2826,654907, full_text_fallback,25.0,34.0,middle
+DVN,Devon Energy,Energy,Oil & Gas Exploration & Production,0.0203,375628, full_text_fallback,4.0,1.0,middle
+DXCM,Dexcom,Health Care,Health Care Equipment,0.0124,646376, full_text_fallback,21.0,1.0,middle
+DOV,Dover Corporation,Industrials,Industrial Machinery & Supplies & Components,0.0396,465628, full_text_fallback,15.0,13.0,middle
+EA,Electronic Arts,Communication Services,Interactive Home Entertainment,0.0951,340123, full_text_fallback,6.0,7.0,middle
+EPAM,EPAM Systems,Information Technology,IT Consulting & Other Services,0.0396,417841, full_text_fallback,54.0,5.0,middle
+EFX,Equifax,Industrials,Research & Consulting Services,0.1732,477521, full_text_fallback,4.0,25.0,middle
+FFIV,"F5, Inc.",Information Technology,Communications Equipment,0.6105,357313, full_text_fallback,11.0,48.0,middle
+FDS,FactSet,Financials,Financial Exchanges & Data,0.2828,412307, full_text_fallback,4.0,25.0,middle
+FICO,Fair Isaac,Information Technology,Application Software,0.549,413319, full_text_fallback,14.0,45.0,middle
+FDX,FedEx,Industrials,Air Freight & Logistics,0.0948,551807, full_text_fallback,7.0,22.0,middle
+FIS,Fidelity National Information Services,Financials,Transaction & Payment Processing Services,0.0526,463263, full_text_fallback,15.0,14.0,middle
+FTNT,Fortinet,Information Technology,Systems Software,0.1911,549169, full_text_fallback,36.0,23.0,middle
+FOXA,Fox Corporation (Class A),Communication Services,Broadcasting,0.056,463231, full_text_fallback,9.0,3.0,middle
+FOX,Fox Corporation (Class B),Communication Services,Broadcasting,0.056,463231, full_text_fallback,10.0,4.0,middle
+IT,Gartner,Information Technology,IT Consulting & Other Services,0.0502,347008, full_text_fallback,51.0,8.0,middle
+GE,GE Aerospace,Industrials,Aerospace & Defense,0.0332,546294, full_text_fallback,18.0,11.0,middle
+GEHC,GE HealthCare,Health Care,Health Care Equipment,0.3126,618812, full_text_fallback,1.0,21.0,middle
+GEN,Gen Digital,Information Technology,Systems Software,0.3195,420961, full_text_fallback,23.0,36.0,middle
+GD,General Dynamics,Industrials,Aerospace & Defense,0.1755,338618, full_text_fallback,3.0,26.0,middle
+GPN,Global Payments,Financials,Transaction & Payment Processing Services,0.0341,480594, full_text_fallback,17.0,12.0,middle
+GDDY,GoDaddy,Information Technology,Internet Services & Infrastructure,0.0135,573054, full_text_fallback,58.0,2.0,middle
+HAL,Halliburton,Energy,Oil & Gas Equipment & Services,0.029,313414, full_text_fallback,3.0,2.0,middle
+HCA,HCA Healthcare,Health Care,Health Care Facilities,0.0277,524274, full_text_fallback,13.0,9.0,middle
+HPE,Hewlett Packard Enterprise,Information Technology,"Technology Hardware, Storage & Peripherals",1.5142,700906, full_text_fallback,3.0,56.0,middle
+HON,Honeywell,Industrials,Industrial Conglomerates,0.0396,467026, full_text_fallback,16.0,14.0,middle
+HPQ,HP Inc.,Information Technology,"Technology Hardware, Storage & Peripherals",0.4508,545294, full_text_fallback,18.0,41.0,middle
+HII,Huntington Ingalls Industries,Industrials,Aerospace & Defense,0.0658,487182, full_text_fallback,10.0,19.0,middle
+IBM,IBM,Information Technology,IT Consulting & Other Services,0.7297,130469, full_text_fallback,10.0,49.0,middle
+INTC,Intel,Information Technology,Semiconductors,1.0556,578733, full_text_fallback,6.0,53.0,middle
+INTU,Intuit,Information Technology,Application Software,1.1498,477840, full_text_fallback,5.0,54.0,middle
+IQV,IQVIA,Health Care,Life Sciences Tools & Services,0.0159,533743, full_text_fallback,18.0,4.0,middle
+JKHY,Jack Henry & Associates,Financials,Transaction & Payment Processing Services,0.381,259580, full_text_fallback,2.0,27.0,middle
+J,Jacobs Solutions,Industrials,Construction & Engineering,0.115,567079, full_text_fallback,5.0,24.0,middle
+JCI,Johnson Controls,Industrials,Building Products,0.1104,545562, full_text_fallback,6.0,23.0,middle
+KEY,KeyCorp,Financials,Regional Banks,0.0103,927835, full_text_fallback,28.0,1.0,middle
+KEYS,Keysight Technologies,Information Technology,Electronic Equipment & Instruments,0.2462,492670, full_text_fallback,29.0,30.0,middle
+KLAC,KLA Corporation,Information Technology,Semiconductor Materials & Equipment,0.2753,554717, full_text_fallback,27.0,32.0,middle
+LH,Labcorp,Health Care,Health Care Services,0.0563,562320, full_text_fallback,11.0,11.0,middle
+LRCX,Lam Research,Information Technology,Semiconductor Materials & Equipment,0.0834,406505, full_text_fallback,46.0,13.0,middle
+LDOS,Leidos,Industrials,Diversified Support Services,0.0169,463239, full_text_fallback,24.0,5.0,middle
+LMT,Lockheed Martin,Industrials,Aerospace & Defense,0.0152,508735, full_text_fallback,27.0,2.0,middle
+LITE,Lumentum,Information Technology,Communications Equipment,0.2135,563298, full_text_fallback,34.0,25.0,middle
+MRSH,Marsh McLennan,Financials,Insurance Brokers,0.06,545020, full_text_fallback,14.0,15.0,middle
+MA,Mastercard,Financials,Transaction & Payment Processing Services,0.1948,556371, full_text_fallback,6.0,23.0,middle
+MDT,Medtronic,Health Care,Health Care Equipment,0.2404,528879, full_text_fallback,2.0,20.0,middle
+META,Meta Platforms,Communication Services,Interactive Media & Services,0.467,530025, full_text_fallback,3.0,10.0,middle
+MU,Micron Technology,Information Technology,Semiconductors,0.3203,353667, full_text_fallback,22.0,37.0,middle
+MSFT,Microsoft,Information Technology,Systems Software,2.1371,372583, full_text_fallback,2.0,57.0,middle
+MRNA,Moderna,Health Care,Biotechnology,0.1929,740647, full_text_fallback,4.0,18.0,middle
+MSI,Motorola Solutions,Information Technology,Communications Equipment,0.5945,504141, full_text_fallback,13.0,46.0,middle
+MSCI,MSCI Inc.,Financials,Financial Exchanges & Data,0.1135,456860, full_text_fallback,10.0,19.0,middle
+NDAQ,"Nasdaq, Inc.",Financials,Financial Exchanges & Data,0.1142,572993, full_text_fallback,9.0,20.0,middle
+NTAP,NetApp,Information Technology,"Technology Hardware, Storage & Peripherals",0.1844,407243, full_text_fallback,38.0,21.0,middle
+NWSA,News Corp (Class A),Communication Services,Publishing,0.3891,595501, full_text_fallback,4.0,8.0,middle
+NWS,News Corp (Class B),Communication Services,Publishing,0.3891,595501, full_text_fallback,5.0,9.0,middle
+NTRS,Northern Trust,Financials,Asset Management & Custody Banks,0.0192,991690, full_text_fallback,23.0,6.0,middle
+NOC,Northrop Grumman,Industrials,Aerospace & Defense,0.0552,455957, full_text_fallback,13.0,16.0,middle
+NVDA,Nvidia,Information Technology,Semiconductors,2.7129,394445, full_text_fallback,1.0,58.0,middle
+NXPI,NXP Semiconductors,Information Technology,Semiconductors,0.019,425268, full_text_fallback,56.0,3.0,middle
+ON,ON Semiconductor,Information Technology,Semiconductors,0.0608,421929, full_text_fallback,49.0,10.0,middle
+ORCL,Oracle Corporation,Information Technology,Application Software,0.2216,482074, full_text_fallback,32.0,27.0,middle
+PLTR,Palantir Technologies,Information Technology,Application Software,0.1848,582625, full_text_fallback,37.0,22.0,middle
+PANW,Palo Alto Networks,Information Technology,Systems Software,0.8963,459342, full_text_fallback,9.0,50.0,middle
+PAYX,Paychex,Industrials,Human Resource & Employment Services,0.2443,311614, full_text_fallback,2.0,27.0,middle
+PYPL,PayPal,Financials,Transaction & Payment Processing Services,0.0627,566463, full_text_fallback,13.0,16.0,middle
+PGR,Progressive Corporation,Financials,Property & Casualty Insurance,0.3177,228242, full_text_fallback,3.0,26.0,middle
+QCOM,Qualcomm,Information Technology,Semiconductors,0.9939,453141, full_text_fallback,7.0,52.0,middle
+DGX,Quest Diagnostics,Health Care,Health Care Services,0.0915,446613, full_text_fallback,8.0,14.0,middle
+RJF,Raymond James Financial,Financials,Investment Banking & Brokerage,0.0107,861804, full_text_fallback,27.0,2.0,middle
+RTX,RTX Corporation,Industrials,Aerospace & Defense,0.0127,658040, full_text_fallback,28.0,1.0,middle
+RF,Regions Financial Corporation,Financials,Regional Banks,0.02,906701, full_text_fallback,22.0,7.0,middle
+RMD,ResMed,Health Care,Health Care Equipment,0.2336,488472, full_text_fallback,3.0,19.0,middle
+HOOD,Robinhood Markets,Financials,Investment Banking & Brokerage,0.0656,605072, full_text_fallback,12.0,17.0,middle
+ROK,Rockwell Automation,Industrials,Electrical Components & Equipment,0.0718,391041, full_text_fallback,9.0,20.0,middle
+SPGI,S&P Global,Financials,Financial Exchanges & Data,0.2064,566669, full_text_fallback,5.0,24.0,middle
+CRM,Salesforce,Information Technology,Application Software,0.4778,446744, full_text_fallback,16.0,43.0,middle
+SLB,Schlumberger,Energy,Oil & Gas Equipment & Services,0.0653,292729, full_text_fallback,2.0,3.0,middle
+STX,Seagate Technology,Information Technology,"Technology Hardware, Storage & Peripherals",0.2192,475621, full_text_fallback,33.0,26.0,middle
+NOW,ServiceNow,Information Technology,Systems Software,0.4637,373788, full_text_fallback,17.0,42.0,middle
+SWKS,Skyworks Solutions,Information Technology,Semiconductors,0.1641,315339, full_text_fallback,41.0,18.0,middle
+SWK,Stanley Black & Decker,Industrials,Industrial Machinery & Supplies & Components,0.0159,499148, full_text_fallback,25.0,4.0,middle
+STT,State Street Corporation,Financials,Asset Management & Custody Banks,0.0326,1095843, full_text_fallback,18.0,11.0,middle
+SMCI,Supermicro,Information Technology,"Technology Hardware, Storage & Peripherals",0.2377,608539, full_text_fallback,30.0,29.0,middle
+SYF,Synchrony Financial,Financials,Consumer Finance,0.0245,659875, full_text_fallback,21.0,8.0,middle
+SNPS,Synopsys,Information Technology,Application Software,0.6067,448489, full_text_fallback,12.0,47.0,middle
+TEL,TE Connectivity,Information Technology,Electronic Manufacturing Services,0.124,390172, full_text_fallback,45.0,14.0,middle
+TER,Teradyne,Information Technology,Semiconductor Materials & Equipment,0.0624,486946, full_text_fallback,48.0,11.0,middle
+TKO,TKO Group Holdings,Communication Services,Movies & Entertainment,0.0206,739657,used 2024 filing full_text_fallback,11.0,2.0,middle
+TTD,Trade Desk (The),Communication Services,Advertising,0.0589,393338, full_text_fallback,8.0,5.0,middle
+TRV,Travelers Companies (The),Financials,Property & Casualty Insurance,0.0361,955291, full_text_fallback,16.0,13.0,middle
+TRMB,Trimble Inc.,Information Technology,Application Software,0.0451,376925, full_text_fallback,53.0,6.0,middle
+UBER,Uber,Industrials,Passenger Ground Transportation,0.0629,728158, full_text_fallback,11.0,18.0,middle
+VRSK,Verisk Analytics,Industrials,Research & Consulting Services,0.0919,479546, full_text_fallback,8.0,21.0,middle
+VZ,Verizon,Communication Services,Integrated Telecommunication Services,0.0157,572131, full_text_fallback,12.0,1.0,middle
+V,Visa Inc.,Financials,Transaction & Payment Processing Services,0.4187,479623, full_text_fallback,1.0,28.0,middle
+WAB,Wabtec,Industrials,Construction Machinery & Heavy Transportation Equipment,0.0228,370137, full_text_fallback,21.0,8.0,middle
+DIS,Walt Disney Company (The),Communication Services,Movies & Entertainment,0.0898,608956, full_text_fallback,7.0,6.0,middle
+WDC,Western Digital,Information Technology,"Technology Hardware, Storage & Peripherals",0.0192,410145, full_text_fallback,55.0,4.0,middle
+WDAY,"Workday, Inc.",Information Technology,Application Software,0.5284,429372, full_text_fallback,15.0,44.0,middle
+ZBRA,Zebra Technologies,Information Technology,Electronic Equipment & Instruments,0.1638,364365, full_text_fallback,42.0,17.0,middle
+ZBH,Zimmer Biomet,Health Care,Health Care Equipment,0.1619,411049, full_text_fallback,5.0,17.0,middle
+ZTS,Zoetis,Health Care,Pharmaceuticals,0.0435,551756, full_text_fallback,12.0,10.0,middle

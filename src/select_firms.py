@@ -53,7 +53,7 @@ def get_sp500():
 
 # Run Step 1
 sp500 = get_sp500()
-sp500.to_csv(f"{DATA_DIR}sp500_list.csv", index=False)
+sp500.to_csv(os.path.join(DATA_DIR, "sp500_list.csv"), index=False)
 print(f"\nSaved sp500_list.csv — {len(sp500)} firms")
 print(sp500["sector"].value_counts().to_string())
 
@@ -91,7 +91,7 @@ def count_ai_mentions(text):
 # STEP 4 — Download 2023 10-K for each firm and score
 # ════════════════════════════════════════════════════════════════════════════
 
-CHECKPOINT     = f"{DATA_DIR}ai_scores_{SCREENING_YEAR}_checkpoint.csv"
+CHECKPOINT     = os.path.join(DATA_DIR, f"ai_scores_{SCREENING_YEAR}_checkpoint.csv")
 
 # Resume if interrupted
 if os.path.exists(CHECKPOINT):
@@ -252,10 +252,10 @@ working_sample = pd.concat(selected_parts, ignore_index=True)
 working_sample = working_sample.drop_duplicates(subset=["ticker"])
 
 # Save all scored firms
-scores.to_csv(f"{DATA_DIR}firm_groups_all_scored.csv", index=False)
+scores.to_csv(os.path.join(DATA_DIR, "firm_groups_all_scored.csv"), index=False)
 
 # Save final selected firms
-working_sample.to_csv(f"{DATA_DIR}working_sample.csv", index=False)
+working_sample.to_csv(os.path.join(DATA_DIR, "working_sample.csv"), index=False)
 
 print(f"\n── Final working sample: {len(working_sample)} firms ───────────────")
 print(
