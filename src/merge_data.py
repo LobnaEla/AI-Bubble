@@ -1,93 +1,171 @@
-import os
+"""
+MERGE DATA
+==========
+Fusionne edgar_panel.csv × financial_data.csv (roic.ai).
+
+LOGIQUE :
+  - Prend uniquement les tickers COMMUNS aux deux fichiers
+  - pe et pe_premium viennent de roic.ai → time-varying ✓ (plus de pe_proxy)
+  - Années 2018–2026
+
+INPUT  :
+  data/processed/edgar_panel.csv   → texte NLP (151+ firmes, 2018-2024)
+  data/processed/financial_data.csv   → données roic.ai (pe historique ✓)
+
+OUTPUT :
+  data/processed/merged_panel.csv
+
+USAGE :
+  cd AI_BUBBLE
+  python src/merge_data.py
+"""
+
 import sys
 import pandas as pd
+import numpy as np
+from pathlib import Path
 
-sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
-from config import ROOT_DIR, OUTPUT_DIR, DATA_DIR
+ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT))
+import config
 
-EDGAR_PATH = os.path.join(DATA_DIR, "edgar_panel_fixed.csv")
-FINANCIAL_PATH = os.path.join(DATA_DIR, "financial_data.csv")
-OUTPUT_PATH = os.path.join(OUTPUT_DIR, "merged_panel.csv")
+DATA_DIR   = Path(config.DATA_DIR)
+OUTPUT_DIR = Path(config.OUTPUT_DIR)
+OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
-print("Loading financial data ...")
-df_fin = pd.read_csv(FINANCIAL_PATH)
+EDGAR_FILE  = DATA_DIR / "edgar_panel.csv"
+OUTPUT_FILE = DATA_DIR / "merged_panel.csv"
 
-print("Loading EDGAR text panel ...")
-df_edgar = pd.read_csv(EDGAR_PATH)
+for fname in ["financial_data.csv", "financial_data.csv"]:
+    FIN_FILE = DATA_DIR / fname
+    if FIN_FILE.exists():
+        break
 
-df_fin["year"] = df_fin["year"].astype(int)
-df_edgar["fiscal_year"] = df_edgar["fiscal_year"].astype(int)
-df_edgar["ticker"] = df_edgar["ticker"].str.strip().str.upper()
-df_fin["ticker"] = df_fin["ticker"].str.strip().str.upper()
+VALID_YEARS = list(range(2018, 2027))
 
-fin_tickers = set(df_fin["ticker"].unique())
-df_edgar_54 = df_edgar[df_edgar["ticker"].isin(fin_tickers)].copy()
 
-print(f"EDGAR rows for 54 firms: {len(df_edgar_54)}")
-print(f"Financial rows: {len(df_fin)}")
+def main():
+    print("=" * 65)
+    print("MERGE DATA — edgar × financial_data (roic.ai)")
+    print("=" * 65)
 
-EDGAR_COLS = [
-    "ticker", "fiscal_year",
-    "name",
-    "sector",
-    "sub_industry",
-    "group",
-    "filing_date",
-    "mda_word_count",
-    "ai_keyword_hits",
-    "ai_density_per1k",
-    "speculative_hits",
-    "speculative_score",
-    "operational_hits",
-    "operational_score",
-    "spec_vs_oper_ratio",
-    "ai_density_2023",
-    "data_quality",
-]
+    edgar = pd.read_csv(EDGAR_FILE)
+    fin   = pd.read_csv(FIN_FILE)
 
-df_edgar_sel = df_edgar_54[EDGAR_COLS].copy()
-df_edgar_sel.rename(columns={"sector": "sector_edgar"}, inplace=True)
+    print(f"\nEdgar  : {edgar.shape[0]} rows | "
+          f"{edgar['ticker'].nunique()} firmes | "
+          f"années {sorted(edgar['fiscal_year'].unique())}")
+    print(f"Financ : {fin.shape[0]} rows | "
+          f"{fin['ticker'].nunique()} firmes | "
+          f"source : {FIN_FILE.name}")
 
-df_merged = df_fin.merge(
-    df_edgar_sel,
-    left_on=["ticker", "year"],
-    right_on=["ticker", "fiscal_year"],
-    how="left",
-)
+    # ── 1. Tickers communs ────────────────────────────────────────────────────
+    edgar_tickers = set(edgar["ticker"].unique())
+    fin_tickers   = set(fin["ticker"].unique())
+    common        = edgar_tickers & fin_tickers
+    only_edgar    = edgar_tickers - fin_tickers
+    only_fin      = fin_tickers   - edgar_tickers
 
-df_merged.drop(columns=["fiscal_year"], inplace=True)
+    print(f"\n[1] Intersection des tickers :")
+    print(f"    Edgar seulement  : {len(only_edgar)} firmes")
+    print(f"    Financ seulement : {len(only_fin)} firmes")
+    print(f"    Communs          : {len(common)} firmes  ← on garde ces-là")
 
-total_rows = len(df_merged)
-matched_rows = df_merged["ai_density_per1k"].notna().sum()
-unmatched = total_rows - matched_rows
+    edgar = edgar[edgar["ticker"].isin(common)].copy()
+    fin   = fin[fin["ticker"].isin(common)].copy()
 
-print("\nMerge diagnostics")
-print(f"Total rows in merged panel: {total_rows}")
-print(f"Rows with EDGAR text data: {matched_rows} (fiscal years 2021-2024)")
-print(f"Rows without EDGAR data: {unmatched} (fiscal years 2025-2026, not yet filed)")
+    # ── 2. Filtrer edgar HIGH quality ─────────────────────────────────────────
+    n_before = len(edgar)
+    edgar    = edgar[edgar["data_quality"] == "HIGH"].copy()
+    edgar    = edgar.rename(columns={"fiscal_year": "year"})
+    print(f"\n[2] Edgar HIGH quality : {n_before} → {len(edgar)} rows "
+          f"({edgar['ticker'].nunique()} firmes)")
 
-low_quality = df_merged[df_merged["data_quality"].isin(["LOW", "FAILED"])].shape[0]
-print(f"LOW/FAILED quality rows: {low_quality} (flag; not dropped here)")
+    # ── 3. Filtrer financial années valides ───────────────────────────────────
+    n_before = len(fin)
+    fin      = fin[fin["year"].isin(VALID_YEARS)].copy()
+    print(f"[3] Financial {VALID_YEARS[0]}–{VALID_YEARS[-1]} : "
+          f"{n_before} → {len(fin)} rows")
 
-sector_mismatch = df_merged[
-    df_merged["sector_edgar"].notna() &
-    (df_merged["sector"] != df_merged["sector_edgar"])
-]
-if len(sector_mismatch) > 0:
-    print(f"\nSector label mismatches between yfinance and EDGAR: {len(sector_mismatch)} rows")
-    print(sector_mismatch[["ticker", "year", "sector", "sector_edgar"]].drop_duplicates().to_string(index=False))
-else:
-    print("Sector labels: fully consistent between yfinance and EDGAR.")
+    # ── 4. Vérifier que le P/E est time-varying ───────────────────────────────
+    if "pe" in fin.columns:
+        pe_var = fin.groupby("ticker")["pe"].nunique()
+        n_var  = (pe_var > 1).sum()
+        print(f"\n[4] P/E time-varying : {n_var}/{fin['ticker'].nunique()} firmes")
+        if n_var == 0:
+            print("    ⚠  P/E identique pour toutes les années !")
+            print("       Vérifier que financial_data.py a tourné avec roic.ai")
+        else:
+            print("    ✓ Bon pour la régression panel")
 
-LEAD_COLS = [
-    "ticker", "name", "year", "filing_date",
-    "sector", "sector_edgar", "sub_industry", "group",
-    "data_quality",
-]
-REMAINING = [c for c in df_merged.columns if c not in LEAD_COLS]
-df_merged = df_merged[LEAD_COLS + REMAINING]
+    # ── 5. Colonnes financières à garder ─────────────────────────────────────
+    fin_cols_want = [
+        "ticker", "year",
+        "pe", "pe_avg", "pe_premium", "sector_pe",
+        "revenue", "ebit", "rd",
+        "op_margin", "rd_intensity", "rev_growth",
+        "mktcap", "ev", "eps", "net_income",
+        "log_revenue", "log_mktcap",
+        "post_2022",
+    ]
+    fin_cols = [c for c in fin_cols_want if c in fin.columns]
+    print(f"\n[5] Colonnes financières retenues : {len(fin_cols)}")
 
-df_merged.to_csv(OUTPUT_PATH, index=False)
-print(f"\nSaved: {OUTPUT_PATH}")
-print(f"Shape: {df_merged.shape[0]} rows x {df_merged.shape[1]} columns")
-print("\nColumn list:\n  " + "\n  ".join(df_merged.columns.tolist()))
+    # ── 6. Merge inner join ───────────────────────────────────────────────────
+    panel = edgar.merge(fin[fin_cols], on=["ticker", "year"], how="inner")
+    print(f"\n[6] Panel mergé :")
+    print(f"    Rows   : {panel.shape[0]}")
+    print(f"    Firmes : {panel['ticker'].nunique()}")
+    print(f"    Années : {sorted(panel['year'].unique())}")
+
+    # ── 7. Variables additionnelles ───────────────────────────────────────────
+    for col, new_col in [("mktcap", "log_mktcap"), ("revenue", "log_revenue")]:
+        if col in panel.columns and new_col not in panel.columns:
+            panel[new_col] = np.log(panel[col].clip(lower=1))
+
+    if "post_2022" not in panel.columns:
+        panel["post_2022"] = (panel["year"] > 2022).astype(int)
+
+    if "spec_vs_oper_ratio" in panel.columns:
+        panel["spec_ratio_x_post"] = (
+            panel["spec_vs_oper_ratio"] * panel["post_2022"]
+        )
+
+    # ── 8. Variable dépendante ────────────────────────────────────────────────
+    y_col = next(
+        (c for c in ["pe_premium", "pe_premium_proxy"]
+         if c in panel.columns and panel[c].notna().sum() > 0),
+        None
+    )
+    print(f"\n[7] Variable dépendante : {y_col or '⚠ MANQUANTE'}")
+    if y_col:
+        pvar  = panel.groupby("ticker")[y_col].nunique()
+        n_val = panel[y_col].notna().sum()
+        print(f"    Valides      : {n_val} / {len(panel)}")
+        print(f"    Time-varying : {(pvar > 1).sum()} / {panel['ticker'].nunique()} firmes")
+
+    # ── 9. Valeurs manquantes ─────────────────────────────────────────────────
+    key_cols = [
+        y_col, "spec_vs_oper_ratio", "speculative_score",
+        "operational_score", "log_mktcap", "log_revenue",
+        "op_margin", "rev_growth", "rd_intensity", "post_2022",
+    ]
+    key_cols    = [c for c in key_cols if c and c in panel.columns]
+    null_counts = panel[key_cols].isnull().sum()
+    null_counts = null_counts[null_counts > 0]
+    if len(null_counts):
+        print(f"\n[8] Valeurs manquantes :")
+        for col, n in null_counts.items():
+            print(f"    {col:<30} : {n:>3} NaN ({100*n/len(panel):.1f}%)")
+    else:
+        print("\n[8] Aucune valeur manquante dans les colonnes clés ✓")
+
+    # ── 10. Sauvegarde ────────────────────────────────────────────────────────
+    panel.to_csv(OUTPUT_FILE, index=False)
+    print(f"\n✓ Sauvegardé : {OUTPUT_FILE}")
+    print(f"  Shape : {panel.shape}")
+    print(f"\nProchaine étape : python src/clean_panel.py")
+
+
+if __name__ == "__main__":
+    main()

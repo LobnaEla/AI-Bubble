@@ -1,54 +1,89 @@
+"""
+SELECT FIRMS
+============
+Sélectionne toutes les firmes S&P 500 des secteurs cibles
+et calcule leur densité AI dans le 10-K de SCREENING_YEAR (2021).
+
+CE QUE CE SCRIPT FAIT :
+  1. Télécharge la liste S&P 500
+  2. Filtre sur les secteurs dans FOCUS_SECTORS
+  3. Pour chaque firme, télécharge son 10-K de 2021 via EDGAR
+  4. Compte les mentions AI → ai_density_2021 (variable de contrôle)
+  5. Sauvegarde TOUTES les firmes scorées (pas de filtre top/bottom)
+
+POURQUOI ai_density_2021 ?
+  C'est le niveau AI "de base" de chaque firme avant ChatGPT.
+  Utilisé comme variable de contrôle dans la régression pour
+  distinguer les firmes naturellement tech-heavy des autres.
+
+OUTPUT :
+  data/raw/sp500_list.csv              ← liste complète S&P 500
+  data/raw/firm_groups_all_scored.csv  ← toutes les firmes avec leur score AI
+
+USAGE :
+  cd AI_BUBBLE
+  python src/select_firms.py
+"""
+
 import pandas as pd
 import numpy as np
 import re
 import time
-import os, sys
+import os
+import sys
 from edgar import Company, set_identity
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from config import (
     DATA_DIR,
+    RAW_DIR,
     SCREENING_YEAR,
     FOCUS_SECTORS,
-    SECTOR_SELECTION,
     AI_SCREENING_KEYWORDS,
 )
 
 os.makedirs(DATA_DIR, exist_ok=True)
+os.makedirs(RAW_DIR,  exist_ok=True)
 
 set_identity("lobna.elabed@telecom-paris.fr")
 
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 1. Liste S&P 500
+# ─────────────────────────────────────────────────────────────────────────────
+
 def get_sp500():
-    print("GitHub raw CSV...")
-    try:
-        url = (
-            "https://raw.githubusercontent.com/datasets/"
-            "s-and-p-500-companies/main/data/constituents.csv"
-        )
-        df = pd.read_csv(url)
-        df.columns = df.columns.str.strip()
-        df = df.rename(columns={
-            "Symbol": "ticker",
-            "Security": "name",
-            "GICS Sector": "sector",
-            "GICS Sub-Industry":"sub_industry",
-        })
-        df["ticker"] = df["ticker"].str.replace(".", "-", regex=False)
-        print(f"Got {len(df)} firms from GitHub")
-        return df[["ticker", "name", "sector", "sub_industry"]]
-    except Exception as e:
-        print(f"Method failed: {e}")
+    print("Téléchargement liste S&P 500...")
+    url = (
+        "https://raw.githubusercontent.com/datasets/"
+        "s-and-p-500-companies/main/data/constituents.csv"
+    )
+    df = pd.read_csv(url)
+    df.columns = df.columns.str.strip()
+    df = df.rename(columns={
+        "Symbol"          : "ticker",
+        "Security"        : "name",
+        "GICS Sector"     : "sector",
+        "GICS Sub-Industry": "sub_industry",
+    })
+    df["ticker"] = df["ticker"].str.replace(".", "-", regex=False)
+    print(f"  {len(df)} firmes récupérées")
+    return df[["ticker", "name", "sector", "sub_industry"]]
+
 
 sp500 = get_sp500()
-sp500.to_csv(os.path.join(DATA_DIR, "sp500_list.csv"), index=False)
-print(f"\nSaved sp500_list.csv — {len(sp500)} firms")
-print(sp500["sector"].value_counts().to_string())
+sp500.to_csv(os.path.join(RAW_DIR, "sp500_list.csv"), index=False)
+print(f"Sauvegardé : sp500_list.csv\n")
 
-sp500_filtered = sp500[sp500["sector"].isin(FOCUS_SECTORS)].copy()
-sp500_filtered = sp500_filtered.reset_index(drop=True)
+sp500_filtered = sp500[sp500["sector"].isin(FOCUS_SECTORS)].copy().reset_index(drop=True)
+print(f"Firmes dans les secteurs cibles : {len(sp500_filtered)}")
+print(sp500_filtered["sector"].value_counts().to_string())
 
-print(f"\nFiltered: {len(sp500_filtered)} firms in target sectors")
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 2. Comptage mentions AI dans le 10-K de SCREENING_YEAR
+# ─────────────────────────────────────────────────────────────────────────────
 
 def count_ai_mentions(text):
     if not text or len(text) < 100:
@@ -56,22 +91,23 @@ def count_ai_mentions(text):
     text_lower = text.lower()
     total = 0
     for kw in AI_SCREENING_KEYWORDS:
-        if " " in kw.strip():
+        kw = kw.strip()
+        if " " in kw:
             total += text_lower.count(kw)
         else:
-            total += len(re.findall(r'\b' + re.escape(kw.strip()) + r'\b',
-                                    text_lower))
+            total += len(re.findall(r'\b' + re.escape(kw) + r'\b', text_lower))
     word_count = max(len(text_lower.split()), 1)
     return round((total / word_count) * 1000, 4)
 
-CHECKPOINT = os.path.join(DATA_DIR, f"ai_scores_{SCREENING_YEAR}_checkpoint.csv")
+
+CHECKPOINT = os.path.join(RAW_DIR, f"ai_scores_{SCREENING_YEAR}_checkpoint.csv")
 
 if os.path.exists(CHECKPOINT):
-    done_df = pd.read_csv(CHECKPOINT)
+    done_df      = pd.read_csv(CHECKPOINT)
     done_tickers = set(done_df["ticker"].tolist())
-    print(f"\nResuming from checkpoint: {len(done_tickers)} firms already done")
+    print(f"\nReprise depuis checkpoint : {len(done_tickers)} firmes déjà traitées")
 else:
-    done_df = pd.DataFrame()
+    done_df      = pd.DataFrame()
     done_tickers = set()
 
 new_rows = []
@@ -82,16 +118,16 @@ for idx, row in sp500_filtered.iterrows():
     if ticker in done_tickers:
         continue
 
-    print(f"[{idx + 1}/{len(sp500_filtered)}] {ticker:6s} - {row['name']}")
+    print(f"[{idx+1}/{len(sp500_filtered)}] {ticker:<6} — {row['name']}")
 
     entry = {
-        "ticker": ticker,
-        "name": row["name"],
-        "sector": row["sector"],
-        "sub_industry": row["sub_industry"],
+        "ticker"                      : ticker,
+        "name"                        : row["name"],
+        "sector"                      : row["sector"],
+        "sub_industry"                : row["sub_industry"],
         f"ai_density_{SCREENING_YEAR}": np.nan,
-        "mda_length": 0,
-        "note": "",
+        "mda_length"                  : 0,
+        "note"                        : "",
     }
 
     try:
@@ -103,125 +139,89 @@ for idx, row in sp500_filtered.iterrows():
             if f.filing_date.year == SCREENING_YEAR:
                 target = f
                 break
-
         if target is None:
             for f in filings:
-                if f.filing_date.year in [SCREENING_YEAR-1, SCREENING_YEAR+1]:
+                if f.filing_date.year in [SCREENING_YEAR - 1, SCREENING_YEAR + 1]:
                     target = f
                     entry["note"] = f"used {f.filing_date.year} filing"
                     break
 
         if target is None:
-            print(f"No filing found near {SCREENING_YEAR}")
             entry["note"] = "no_filing_found"
             new_rows.append(entry)
             continue
 
         tenk = target.obj()
-        mda = tenk["item7"] if "item7" in dir(tenk) else None
+        mda  = tenk["item7"] if "item7" in dir(tenk) else None
 
         if not mda or len(str(mda)) < 300:
             mda = target.text()
             entry["note"] += " full_text_fallback"
 
-        mda = str(mda)
+        mda        = str(mda)
         ai_density = count_ai_mentions(mda)
 
         entry[f"ai_density_{SCREENING_YEAR}"] = ai_density
-        entry["mda_length"] = len(mda)
+        entry["mda_length"]                   = len(mda)
         if not entry["note"]:
             entry["note"] = "ok"
 
-        print(f"AI density: {ai_density:.3f}/1000w ({len(mda):,} chars)")
+        print(f"  AI density : {ai_density:.3f}/1000w  ({len(mda):,} chars)")
 
     except Exception as e:
         entry["note"] = f"error: {str(e)[:80]}"
-        print(entry["note"])
+        print(f"  {entry['note']}")
 
     new_rows.append(entry)
 
     checkpoint_df = pd.concat([done_df, pd.DataFrame(new_rows)], ignore_index=True)
     checkpoint_df.to_csv(CHECKPOINT, index=False)
-
     time.sleep(0.6)
 
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 3. Assembler et sauvegarder
+# ─────────────────────────────────────────────────────────────────────────────
+
 score_col = f"ai_density_{SCREENING_YEAR}"
+all_firms = pd.read_csv(CHECKPOINT)
 
-scores = pd.read_csv(CHECKPOINT)
-scores = scores.dropna(subset=[score_col])
-scores = scores[scores[score_col] > 0].copy()
+# Firmes scorées avec succès
+scored = all_firms.dropna(subset=[score_col]).copy()
 
-scores["rank_desc_in_sector"] = scores.groupby("sector")[score_col].rank(
-    method="first",
-    ascending=False
+# Ranking intra-secteur (informatif)
+scored["ai_rank_in_sector"] = scored.groupby("sector")[score_col].rank(
+    method="first", ascending=False
 )
 
-scores["rank_asc_in_sector"] = scores.groupby("sector")[score_col].rank(
-    method="first",
-    ascending=True
+all_firms.to_csv(os.path.join(RAW_DIR, "firm_groups_all_scored.csv"), index=False)
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 4. Rapport
+# ─────────────────────────────────────────────────────────────────────────────
+
+print(f"\n{'='*65}")
+print("RÉSULTAT FINAL")
+print(f"{'='*65}")
+print(f"Firmes dans les secteurs cibles : {len(sp500_filtered)}")
+print(f"Firmes scorées avec succès      : {len(scored)}")
+print(f"Firmes avec erreur EDGAR        : {len(all_firms) - len(scored)}")
+print()
+print("Firmes par secteur :")
+print(scored["sector"].value_counts().to_string())
+print()
+print(f"AI density {SCREENING_YEAR} — statistiques :")
+print(scored[score_col].describe().round(4).to_string())
+print()
+print(f"Top 10 firmes (plus de mentions AI) :")
+print(
+    scored.nlargest(10, score_col)[["ticker", "name", "sector", score_col]]
+    .to_string(index=False)
 )
-
-scores["group"] = "middle"
-
-selected_parts = []
-
-for sector, cfg in SECTOR_SELECTION.items():
-    sector_df = scores[scores["sector"] == sector].copy()
-
-    if sector_df.empty:
-        print(f"\nNo firms found for sector: {sector}")
-        continue
-
-    n_treat = cfg.get("treatment", 0)
-    n_ctrl = cfg.get("control", 0)
-
-    treatment = (
-        sector_df
-        .sort_values(score_col, ascending=False)
-        .head(n_treat)
-        .copy()
-    )
-    treatment["group"] = "treatment"
-
-    control = (
-        sector_df
-        .sort_values(score_col, ascending=True)
-        .head(n_ctrl)
-        .copy()
-    )
-    control["group"] = "control"
-
-    selected_parts.extend([treatment, control])
-
-    print(f"\n{sector}")
-    print(f"Available firms: {len(sector_df)}")
-    print(f"Selected treatment: {len(treatment)}")
-    print(f"Selected control: {len(control)}")
-
-    print("\nTreatment:")
-    print(treatment[["ticker", "name", score_col]].to_string(index=False))
-
-    print("\nControl:")
-    print(control[["ticker", "name", score_col]].to_string(index=False))
-
-working_sample = pd.concat(selected_parts, ignore_index=True)
-
-working_sample = working_sample.drop_duplicates(subset=["ticker"])
-
-scores.to_csv(os.path.join(DATA_DIR, "firm_groups_all_scored.csv"), index=False)
-
-working_sample.to_csv(os.path.join(DATA_DIR, "working_sample.csv"), index=False)
-
-print(f"\nFinal working sample: {len(working_sample)} firms")
-print(working_sample[["ticker", "name", "sector", score_col, "group"]].sort_values(["sector", "group", score_col], ascending=[True, True, False]).to_string(index=False))
-
-print("\nSector balance")
-print(pd.crosstab(working_sample["sector"], working_sample["group"]))
-
-print("\nSaved:")
-print(f"- {DATA_DIR}firm_groups_all_scored.csv")
-print(f"- {DATA_DIR}working_sample.csv")
-
-tickers = working_sample["ticker"].tolist()
-print("\nPaste this into script 01")
-print(f"TICKERS = {tickers}")
+print()
+print(f"Fichier sauvegardé :")
+print(f"  {RAW_DIR}/firm_groups_all_scored.csv  ({len(all_firms)} firmes)")
+print()
+print(f"Prochaine étape :")
+print(f"  python src/financial_data.py")
+print(f"  (récupère les données roic.ai pour les {len(scored)} firmes scorées)")

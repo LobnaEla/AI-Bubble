@@ -1,20 +1,23 @@
 import os
 
-# Root of the project (directory containing this config file)
+# Root of the project
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # Data directories
-DATA_DIR       = os.path.join(ROOT_DIR, "data", "processed")
-RAW_DIR        = os.path.join(ROOT_DIR, "data", "raw")
-OUTPUT_DIR     = os.path.join(ROOT_DIR, "data", "outputs")
+DATA_DIR   = os.path.join(ROOT_DIR, "data", "processed")
+RAW_DIR    = os.path.join(ROOT_DIR, "data", "raw")
+OUTPUT_DIR = os.path.join(ROOT_DIR, "data", "outputs")
 
-# Create all directories if they don't exist
 for d in [DATA_DIR, RAW_DIR, OUTPUT_DIR]:
     os.makedirs(d, exist_ok=True)
 
-# ── Parameters ──────────────────────────────────────────────────
-SCREENING_YEAR = 2021      # year used to classify firms (pre-ChatGPT)
+# ── Paramètres ───────────────────────────────────────────────────────────────
 
+# Année de screening : utilisée pour calculer ai_density_2021
+# (niveau AI de base avant ChatGPT → variable de contrôle dans la régression)
+SCREENING_YEAR = 2021
+
+# Secteurs S&P 500 à inclure dans l'étude
 FOCUS_SECTORS = [
     "Information Technology",
     "Communication Services",
@@ -24,15 +27,7 @@ FOCUS_SECTORS = [
     "Energy",
 ]
 
-SECTOR_SELECTION = {
-    "Information Technology":  {"treatment": 8, "control": 8},
-    "Communication Services":  {"treatment": 5, "control": 5},
-    "Financials":              {"treatment": 4, "control": 4},
-    "Health Care":             {"treatment": 4, "control": 4},
-    "Industrials":             {"treatment": 3, "control": 3},
-    "Energy":                  {"treatment": 3, "control": 3},
-}
-
+# Mots-clés pour compter les mentions AI dans les 10-K
 AI_SCREENING_KEYWORDS = [
     "artificial intelligence",
     "machine learning",
