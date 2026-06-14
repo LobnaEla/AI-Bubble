@@ -1,15 +1,3 @@
-"""
-NETTOYAGE & PRÉPARATION PANEL FINAL
-=====================================
-INPUT  : data/processed/panel_with_topics.csv
-OUTPUT : data/processed/panel_final.csv
-         data/outputs/data_summary.txt
-
-USAGE :
-    cd AI_BUBBLE
-    python src/clean_panel.py
-"""
-
 import sys
 import pandas as pd
 import numpy as np

@@ -1,34 +1,3 @@
-"""
-CLASSIFICATION — NIVEAU 3
-==========================
-4-topic classification inspirée de Ca'Zorzi, Lopardo & Manu (ECB WP 2025).
-
-CHANGEMENTS vs version précédente :
-  - Keyword matching élargi : fenêtre de 2 phrases autour de chaque phrase AI
-  - Suppression stats par groupe (plus utilisé)
-  - Ajout stats temporelles (dominant topic par année)
-
-LOGIQUE DE MATCHING ÉLARGIE :
-  Ancienne : topic keyword ET AI keyword dans la MÊME phrase
-  Nouvelle : topic keyword dans la phrase AI OU dans la phrase précédente/suivante
-  → capture les paragraphes du style :
-    "We are investing heavily in R&D. Our AI platform will..."
-    "We deployed our recommendation engine. This AI system..."
-
-4 TOPICS :
-  1. OPPORTUNITY    → hype marché, croissance, avantage compétitif
-  2. ADOPTION       → déploiement concret, intégration, livraison réelle
-  3. LABOR_SAVING   → automatisation, productivité, réduction coûts/effectifs
-  4. RD_INVESTMENT  → capex, GPU, data center, recherche
-
-INPUT  : data/processed/panel_with_specificity.csv
-OUTPUT : data/processed/panel_with_topics.csv
-
-USAGE :
-    cd AI_BUBBLE
-    python src/topic_classification.py
-"""
-
 import re
 import sys
 import pandas as pd

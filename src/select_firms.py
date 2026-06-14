@@ -1,30 +1,3 @@
-"""
-SELECT FIRMS
-============
-Sélectionne toutes les firmes S&P 500 des secteurs cibles
-et calcule leur densité AI dans le 10-K de SCREENING_YEAR (2021).
-
-CE QUE CE SCRIPT FAIT :
-  1. Télécharge la liste S&P 500
-  2. Filtre sur les secteurs dans FOCUS_SECTORS
-  3. Pour chaque firme, télécharge son 10-K de 2021 via EDGAR
-  4. Compte les mentions AI → ai_density_2021 (variable de contrôle)
-  5. Sauvegarde TOUTES les firmes scorées (pas de filtre top/bottom)
-
-POURQUOI ai_density_2021 ?
-  C'est le niveau AI "de base" de chaque firme avant ChatGPT.
-  Utilisé comme variable de contrôle dans la régression pour
-  distinguer les firmes naturellement tech-heavy des autres.
-
-OUTPUT :
-  data/raw/sp500_list.csv              ← liste complète S&P 500
-  data/raw/firm_groups_all_scored.csv  ← toutes les firmes avec leur score AI
-
-USAGE :
-  cd AI_BUBBLE
-  python src/select_firms.py
-"""
-
 import pandas as pd
 import numpy as np
 import re

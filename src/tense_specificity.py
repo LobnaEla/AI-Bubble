@@ -1,31 +1,3 @@
-"""
-CLASSIFICATION — NIVEAU 1 & 2
-==============================
-Niveau 1 : Tense detection
-Niveau 2 : Specificity scoring
-
-CORRECTIONS vs version précédente :
-  - Mode A lit les .txt depuis data/raw/mda_texts/ (phrase par phrase, précis)
-  - Mode B lit mda_text depuis le CSV si présent (fallback acceptable)
-  - spec_vs_oper_ratio corrigé : division par zéro → remplacée par formule robuste
-  - Input : merged_panel_v2.csv (après merge_data.py)
-
-FORMULE spec_vs_oper_ratio CORRIGÉE :
-  Ancienne : speculative_hits / operational_hits → explose si operational = 0
-  Nouvelle : (spec + 1) / (oper + spec + 2)  ← proportion lissée [0, 1]
-    - 0.5 = autant de spec que d'oper (neutre)
-    - > 0.5 = plus de promesses que de réalisations
-    - < 0.5 = plus de réalisations que de promesses
-  Plus stable, interprétable, jamais infinie
-
-INPUT  : data/processed/merged_panel_v2.csv
-OUTPUT : data/processed/panel_with_specificity.csv
-
-USAGE :
-    cd AI_BUBBLE
-    python src/tense_specificity.py
-"""
-
 import re
 import sys
 import pandas as pd

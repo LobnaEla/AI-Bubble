@@ -1,29 +1,3 @@
-"""
-FINANCIAL DATA — roic.ai
-=========================
-Récupère toutes les données financières depuis l'API roic.ai.
-
-FIRMES : toutes celles dans data/processed/working_sample.csv
-         (toutes les firmes S&P 500 des secteurs cibles, pas juste top/bottom)
-
-ANNÉES : 2018–2026
-
-DONNÉES COLLECTÉES PAR FIRME × ANNÉE :
-  /income-statement → revenue, ebit, rd, op_margin, eps, net_income
-  /multiples        → pe (vrai P/E historique ✓), mktcap, ev
-
-VARIABLE CLÉ :
-  pe_premium = pe - médiane sectorielle par année
-  → variable dépendante de la régression
-
-OUTPUT :
-  data/processed/financial_data.csv
-
-USAGE :
-  cd AI_BUBBLE
-  python src/financial_data.py
-"""
-
 import sys
 import time
 import requests

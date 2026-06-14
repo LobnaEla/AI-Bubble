@@ -1,25 +1,3 @@
-"""
-MERGE DATA
-==========
-Fusionne edgar_panel.csv × financial_data.csv (roic.ai).
-
-LOGIQUE :
-  - Prend uniquement les tickers COMMUNS aux deux fichiers
-  - pe et pe_premium viennent de roic.ai → time-varying ✓ (plus de pe_proxy)
-  - Années 2018–2026
-
-INPUT  :
-  data/processed/edgar_panel.csv   → texte NLP (151+ firmes, 2018-2024)
-  data/processed/financial_data.csv   → données roic.ai (pe historique ✓)
-
-OUTPUT :
-  data/processed/merged_panel.csv
-
-USAGE :
-  cd AI_BUBBLE
-  python src/merge_data.py
-"""
-
 import sys
 import pandas as pd
 import numpy as np
