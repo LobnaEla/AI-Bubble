@@ -1,0 +1,60 @@
+\begin{table}[htbp]
+\centering
+\caption{AI Narrative and P/E Premium — Panel OLS Results}
+\label{tab:regression_full}
+\small
+\begin{tabular}{lcccc|cccc}
+\hline\hline
+ & \multicolumn{4}{c|}{Main results ($Y = pe\_premium$)} & \multicolumn{4}{c}{Robustness ($Y = pe\_premium\_avg$)} \\
+ & M1 & M2 & M3 & M4 & R1 & R2 & R3 & R4 \\
+\hline
+\multicolumn{9}{l}{\textit{Main variable}}\\
+\quad Spec/Oper ratio ($\beta_1$) & -25.696 & 11.823 & — & — & -1.667 & 22.049 & — & — \\
+  & (53.679) & (41.850) &  &  & (97.192) & (154.459) &  &  \\
+\quad Spec/Oper × post2022 ($\beta_6$) & — & -68.981 & — & — & — & -44.269 & — & — \\
+  &  & (48.344) &  &  &  & (232.499) &  &  \\
+\multicolumn{9}{l}{\textit{4 Topics (Ca'Zorzi)}}\\
+\quad Opportunity & — & — & 55.954* & -41.031 & — & — & 71.494 & -113.770 \\
+  &  &  & (29.269) & (84.527) &  &  & (87.171) & (250.171) \\
+\quad Adoption & — & — & -64.175** & -68.060* & — & — & -42.444 & -3.175 \\
+  &  &  & (26.593) & (39.199) &  &  & (82.784) & (170.663) \\
+\quad Labor-saving & — & — & 3.530 & 117.932 & — & — & -106.037 & 149.517 \\
+  &  &  & (50.955) & (101.403) &  &  & (139.923) & (325.855) \\
+\quad R\&D/Investment & — & — & 96.870*** & 92.381** & — & — & 68.131 & 56.121 \\
+  &  &  & (25.171) & (41.027) &  &  & (56.923) & (103.563) \\
+\multicolumn{9}{l}{\textit{Topics × post-2022}}\\
+\quad Opportunity × post2022 & — & — & — & 127.015 & — & — & — & 242.521 \\
+  &  &  &  & (106.614) &  &  &  & (330.695) \\
+\quad Adoption × post2022 & — & — & — & 4.081 & — & — & — & -42.218 \\
+  &  &  &  & (42.572) &  &  &  & (152.326) \\
+\quad Labor-saving × post2022 & — & — & — & -115.231 & — & — & — & -263.364 \\
+  &  &  &  & (89.795) &  &  &  & (356.800) \\
+\quad R\&D/Investment × post2022 & — & — & — & -3.337 & — & — & — & -0.388 \\
+  &  &  &  & (36.390) &  &  &  & (113.200) \\
+\multicolumn{9}{l}{\textit{Controls}}\\
+\quad Log(Revenue) & -37.966 & -39.725 & -45.097 & -47.773 & 23.716 & 21.757 & 24.684 & 20.450 \\
+  & (47.927) & (48.546) & (48.628) & (50.888) & (152.707) & (161.210) & (157.328) & (171.014) \\
+\quad Log(Market Cap) & 35.433** & 35.769** & 29.883* & 27.294 & -13.674 & -13.080 & -15.751 & -18.532 \\
+  & (16.619) & (16.600) & (16.318) & (16.741) & (65.372) & (65.627) & (65.696) & (68.340) \\
+\quad Operating Margin (\%) & -5.625*** & -5.563*** & -5.475*** & -5.432*** & 0.380 & 0.377 & 0.441 & 0.457 \\
+  & (1.639) & (1.621) & (1.604) & (1.618) & (0.660) & (0.665) & (0.658) & (0.678) \\
+\quad R\&D Intensity (\%) & -5.037 & -5.096 & -5.775 & -6.185 & 0.505 & 0.489 & 0.579 & 0.568 \\
+  & (4.270) & (4.222) & (4.467) & (4.435) & (1.239) & (1.300) & (1.250) & (1.320) \\
+\quad Revenue Growth (\%) & 0.017*** & 0.017*** & 0.016*** & 0.015*** & -0.002 & -0.003 & -0.002 & -0.001 \\
+  & (0.005) & (0.005) & (0.005) & (0.005) & (0.018) & (0.016) & (0.018) & (0.019) \\
+\hline
+$Y$ & $pe\_prem.$ & $pe\_prem.$ & $pe\_prem.$ & $pe\_prem.$ & $pe\_prem.\_avg$ & $pe\_prem.\_avg$ & $pe\_prem.\_avg$ & $pe\_prem.\_avg$ \\
+N & 433 & 433 & 433 & 433 & 484 & 484 & 484 & 484 \\
+$R^2$ & 0.1093 & 0.1131 & 0.1366 & 0.1430 & 0.0003 & 0.0004 & 0.0013 & 0.0020 \\
+Firm FE & Yes & Yes & Yes & Yes & Yes & Yes & Yes & Yes \\
+Year FE & Yes & Yes & Yes & Yes & Yes & Yes & Yes & Yes \\
+SE & \multicolumn{8}{c}{Robust HC} \\
+\hline\hline
+\end{tabular}
+\begin{tablenotes}\small
+\item *** p$<$0.01, ** p$<$0.05, * p$<$0.10. Standard errors in parentheses.
+\item $pe\_premium$ = firm P/E minus sector-year median P/E (roic.ai).
+\item $pe\_premium\_avg$ uses annual average price instead of year-end price.
+\item All models include firm and year fixed effects with robust HC standard errors.
+\end{tablenotes}
+\end{table}

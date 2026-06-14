@@ -1,0 +1,6 @@
+﻿Secteur,N,Firmes,R2,Opportunity_beta,Opportunity_pval,Opportunity_sig,Adoption_beta,Adoption_pval,Adoption_sig,Labor-saving_beta,Labor-saving_pval,Labor-saving_sig,R&D/Invest._beta,R&D/Invest._pval,R&D/Invest._sig
+Industrials,91,17,0.51,-61.05,0.7415,,129.73,0.4091,,-29.43,0.9345,,-280.29,0.2175,
+Information Technology,217,41,0.2657,57.14,0.0595,*,-81.34,0.028,**,32.29,0.585,,87.0,0.0011,***
+Health Care,50,9,0.6617,49.2,0.4733,,-24.23,0.6289,,-258.07,0.0805,*,369.63,0.0426,**
+Communication Services,22,4,0.7319,-80.61,0.4336,,-48.86,0.3616,,-80.96,0.3637,,28.34,0.572,
+Financials,42,14,0.3404,-1282.51,0.2208,,312.06,0.4728,,666.02,0.4198,,1445.89,0.2577,
