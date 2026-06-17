@@ -1,8 +1,3 @@
-"""
-regression_final.py — Panel regression complète + robustesse + stats descriptives
-Projet AI Bubble (Youssef Chebil & Lobna Elabed)
-"""
-
 import os
 import warnings
 import numpy as np
@@ -329,11 +324,3 @@ for t in TOPICS_X:
 print("\n[Robustesse R3 — confirmation M3 avec pe_premium_avg ?]")
 for t in TOPICS:
     interpret(res_r3, t, t)
-
-print("\n" + "=" * 65)
-print("FICHIERS PRODUITS")
-print("=" * 65)
-print(f"  descriptive_stats.csv        -> stats descriptives")
-print(f"  regression_table_full.csv    -> tableau complet (principaux + robustesse)")
-print(f"  regression_table_full.tex    -> version LaTeX pour rapport")
-print("=" * 65)

@@ -1,14 +1,3 @@
-"""
-regression_by_sector.py — Régression M3 par secteur + analyses supplémentaires
-Projet AI Bubble — Youssef Chebil & Lobna Elabed
-
-Analyses :
-  1. M3 par secteur — 4 topics vs pe_premium
-  2. M3 pre vs post ChatGPT par secteur
-  3. Heatmap des coefficients par secteur
-  4. Comparaison graphique des topics significatifs
-"""
-
 import os
 import warnings
 import numpy as np
@@ -399,11 +388,3 @@ csv_df = pd.DataFrame(rows)
 csv_path = os.path.join(OUTPUT_DIR, 'sector_regression_results.csv')
 csv_df.to_csv(csv_path, index=False, encoding='utf-8-sig')
 print(f"✓ CSV exporté : {csv_path}")
-
-print("\n" + "=" * 65)
-print("DONE — Fichiers dans data/outputs/")
-print("  sector_1_betas_par_secteur.png")
-print("  sector_2_heatmap_coefficients.png")
-print("  sector_3_pre_vs_post_chatgpt.png")
-print("  sector_regression_results.csv")
-print("=" * 65)

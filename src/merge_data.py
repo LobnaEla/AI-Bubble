@@ -142,8 +142,6 @@ def main():
     panel.to_csv(OUTPUT_FILE, index=False)
     print(f"\n✓ Sauvegardé : {OUTPUT_FILE}")
     print(f"  Shape : {panel.shape}")
-    print(f"\nProchaine étape : python src/clean_panel.py")
-
 
 if __name__ == "__main__":
     main()

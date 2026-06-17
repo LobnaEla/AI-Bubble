@@ -1,0 +1,20 @@
+﻿spec,var,beta,se,pval,sig
+A. Forward-looking density (speculative_score seul),speculative_score,19.329,67.848,0.7759,
+A. Forward-looking density (speculative_score seul),log_revenue,-36.903,46.738,0.4303,
+A. Forward-looking density (speculative_score seul),log_mktcap,34.45,16.885,0.0421,**
+A. Forward-looking density (speculative_score seul),op_margin,-5.656,1.647,0.0007,***
+A. Forward-looking density (speculative_score seul),rd_intensity,-4.919,4.195,0.2418,
+A. Forward-looking density (speculative_score seul),rev_growth,0.017,0.005,0.0006,***
+B. Forward vs Operational density,speculative_score,16.186,68.193,0.8125,
+B. Forward vs Operational density,operational_score,19.461,20.786,0.3498,
+B. Forward vs Operational density,log_revenue,-41.417,49.419,0.4026,
+B. Forward vs Operational density,log_mktcap,33.823,16.788,0.0447,**
+B. Forward vs Operational density,op_margin,-5.667,1.643,0.0006,***
+B. Forward vs Operational density,rd_intensity,-5.458,4.439,0.2197,
+B. Forward vs Operational density,rev_growth,0.017,0.005,0.0008,***
+C. Ratio (rappel = ton M1),spec_vs_oper_ratio,-25.696,53.679,0.6325,
+C. Ratio (rappel = ton M1),log_revenue,-37.966,47.927,0.4288,
+C. Ratio (rappel = ton M1),log_mktcap,35.433,16.619,0.0337,**
+C. Ratio (rappel = ton M1),op_margin,-5.625,1.639,0.0007,***
+C. Ratio (rappel = ton M1),rd_intensity,-5.037,4.27,0.2389,
+C. Ratio (rappel = ton M1),rev_growth,0.017,0.005,0.0006,***

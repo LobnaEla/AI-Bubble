@@ -1,12 +1,3 @@
-"""
-scatter_plots.py — Scatter plots pour la présentation AI Bubble
-Youssef Chebil & Lobna Elabed — Telecom Paris 2A
-
-Génère 3 scatter plots :
-  1. spec_vs_oper_ratio vs pe_premium
-  2. topic_rd_investment vs pe_premium
-"""
-
 import os
 import pandas as pd
 import numpy as np
@@ -145,5 +136,3 @@ path2 = os.path.join(OUTPUT_DIR, 'scatter_2_rdinvestment_vs_pepremium.png')
 plt.savefig(path2, dpi=150, bbox_inches='tight', facecolor='white')
 plt.close()
 print(f'✓ Scatter 2 sauvegardé : {path2}')
-
-print('\n✓ Tous les scatter plots générés dans data/outputs/')

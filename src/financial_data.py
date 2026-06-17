@@ -207,7 +207,6 @@ def main():
 
     df.to_csv(OUTPUT_FILE, index=False)
     print(f"\n✓ Sauvegardé : {OUTPUT_FILE}  {df.shape}")
-    print(f"\nProchaine étape : python src/merge_data.py")
 
 
 if __name__ == "__main__":
